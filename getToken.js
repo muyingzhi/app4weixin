@@ -7,8 +7,14 @@ var config = {
 };
 
 var i=0;
-setInterval(function(){
-	//---------向微信发送请求以获取access_token
+//--------第一执行
+getAccessToken();
+//--------每隔两小时执行一次
+setInterval(getAccessToken,2*60*60*1000);
+//---------向微信发送请求以获取access_token
+function getAccessToken(){
+	console.log(i + " : " + new Date());
+	
 	var api = new OAuth(config.appid, config.appsecret);
 	var wxp = {};
 	api.getAccessToken('code', function (err, data) {
@@ -18,15 +24,12 @@ setInterval(function(){
 	    // 	res.send('wechat is verfing:'+api.appid+'\n'+api.appsecret+'\n'+data);
 	    	wxp.appid = api.appid;
 	    	wxp.appsecret = api.appsecret;
-	    	wxp.token = i++;
-	    	console.log(JSON.stringify(wxp));
+	    	wxp.token = i++;//data
+	    	
 			fs.writeFile('public_token.txt',JSON.stringify(wxp),function(err){
 				if(err) throw err;
 				console.log('app token is save');
 			});
 	    // }
 	});
-},2000);
-/*
-
-*/
+}

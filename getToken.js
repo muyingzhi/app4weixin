@@ -1,5 +1,5 @@
 var wechat = require('wechat');
-var OAuth = require('wechat').OAuth;
+var API = require('wechat').API;
 var fs = require('fs');
 var config = {
   appid: 'wxc4e54add8c920608',
@@ -7,29 +7,26 @@ var config = {
 };
 
 var i=0;
-//--------第一执行
-getAccessToken();
-//--------每隔两小时执行一次
-setInterval(getAccessToken,2*60*60*1000);
-//---------向微信发送请求以获取access_token
-function getAccessToken(){
-	console.log(i + " : " + new Date());
-	
-	var api = new OAuth(config.appid, config.appsecret);
-	var wxp = {};
-	api.getAccessToken('code', function (err, data) {
-	    if(err.name =='WeChatAPIError'){
-	    	console.log("get access token is erro:" + err.message)
-	    }else{
-	    	console.log('wechat is verfing:'+api.appid+'\n'+api.appsecret+'\n'+data);
-	    	wxp.appid = api.appid;
-	    	wxp.appsecret = api.appsecret;
-	    	wxp.token = data;
-	    	
-			fs.writeFile('public_token.txt',JSON.stringify(wxp),function(err){
-				if(err) throw err;
-				console.log('app token is save');
-			});
-	    }
+var api = new API(config.appid, config.appsecret, function(callback){
+	fs.readFile('public_token.txt', 'utf8', function(err, txt){
+		if (err) {
+			return callback(err);
+		}
+		callback(null, JSON.parse(txt));
 	});
-}
+}, function(token, callback){
+	fs.writeFile('public_token.txt', JSON.stringify(token), callback);
+	console.log('app token is save');
+});
+//--------第一执行,-向微信发送请求以获取access_token
+// api.getAccessToken(function(err,token){
+// 	console.log("access_token: " + token.access_token);
+// });
+
+//--------每隔两小时执行一次
+setInterval(
+	// api.getAccessToken(function(err,token){
+	// 	console.log("access_token: " + token.access_token + i++);
+	// })
+	console.log(i++)
+	,2*1000);

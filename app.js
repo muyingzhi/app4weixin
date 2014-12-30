@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var weixinVerfiy = require('./routes/wechatVerfiy');
+var wechatRecive = require('./routes/wechatRecive');
+var wechatSend =   require('./routes/wechatSend');
 var app = express();
 
 // view engine setup
@@ -21,10 +22,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
-app.use('/users', users);
-app.use('/weixinVerfiy.do',weixinVerfiy);
+var appdir = "/EHRBrowser";
+app.use(appdir + '/', routes);
+app.use(appdir + '/users', users);
+app.use(appdir + '/weixinVerfiy.do',wechatRecive);
+app.use(appdir + '/send2weixin.do',wechatSend);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

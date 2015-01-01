@@ -6,7 +6,6 @@ var config = {
   appsecret: '84f56957e721158de4c742ddf9aa8ba7'
 };
 
-var i=0;
 var api = new API(config.appid, config.appsecret, function(callback){
 	fs.readFile('public_token.txt', 'utf8', function(err, txt){
 		if (err) {
@@ -15,6 +14,10 @@ var api = new API(config.appid, config.appsecret, function(callback){
 		callback(null, JSON.parse(txt));
 	});
 }, function(token, callback){
+	if (token) {
+		token.appid = config.appid;
+		token.appsecret = config.appsecret;
+	}
 	fs.writeFile('public_token.txt', JSON.stringify(token), callback);
 	console.log('app token is save');
 });
@@ -24,9 +27,14 @@ var api = new API(config.appid, config.appsecret, function(callback){
 // });
 
 //--------每隔两小时执行一次
-setInterval(
-	// api.getAccessToken(function(err,token){
-	// 	console.log("access_token: " + token.access_token + i++);
-	// })
-	console.log(i++)
-	,2*1000);
+var i=0;
+api.getAccessToken(function(err,token){
+		i++;
+		console.log("第"+i+"次access_token: " + token.accessToken);
+	});
+setInterval(function(){
+	api.getAccessToken(function(err,token){
+		i++;
+		console.log("第"+i+"次access_token: " + token.accessToken);
+	});
+},2*60*60*1000);

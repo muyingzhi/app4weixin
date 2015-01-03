@@ -4,11 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var wechatRecive = require('./routes/wechatRecive');
-var wechatSend =   require('./routes/wechatSend');
+var wechat =   require('wechat');
 var app = express();
 
 // view engine setup
@@ -25,8 +23,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 var appdir = "/EHRBrowser";
 app.use(appdir + '/', routes);
 app.use(appdir + '/users', users);
-app.use(appdir + '/weixinVerfiy.do',wechatRecive);
-app.use(appdir + '/send2weixin.do',wechatSend);
+app.use(appdir + '/weixinVerfiy.do',wechat("haojiankang")
+    .text(function(message, req, res, next){
+        //var message = req.weixin;
+        //console.log("text message:" + JSON.stringfy(message));
+        res.reply("Hello world:" + message.FromUserName + "。这是文本消息")
+    }).middlewarify());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var wechat = require('wechat');
-var OAuth = require('wechat').OAuth;
 var fs = require('fs');
 var appConfig = {
   appid: '',

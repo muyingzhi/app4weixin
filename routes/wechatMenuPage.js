@@ -11,9 +11,9 @@ router.get('/', function(req, res) {
 	var API = wechat.API;
 	var api = new API(config.appid, config.appsecret);
 	api.getMenu(function(){
-		for(var i=0;i<arguments.length;i++){
-			console.log(arguments[i]);
-		}
+		// for(var i=0;i<arguments.length;i++){
+		// 	console.log(arguments[i]);
+		// }
 		//res.setHeader("Content-type","text/json");
 		//res.send(arguments[1]);
 		var menu = {};

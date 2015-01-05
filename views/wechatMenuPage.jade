@@ -10,11 +10,14 @@ block content
         ul.menu02
           -for(var i=0;i<one.sub_button.length;i++){
             li
-              input(value= one.sub_button[i].name)
+              input.menuName(value= one.sub_button[i].name)
+              select.menuType
+                option(value='CLICK') CLICK
+                option(value='URL') URL
+                option(value='SUB') SUB
+              input.menuKey(value=one.sub_button[i].key)
             p
           -}
-    button(type=submit,value=submit) 提交
-script.
-  ｛var butt = document.getElementByTag("button");
-   butt.onclick = function(){	}
-   ｝
+    input#submitMenu(type='button',value='submit')
+  script(src='/javascripts/reqSetMenu.js')
+

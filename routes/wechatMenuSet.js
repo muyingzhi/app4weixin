@@ -6,10 +6,15 @@ var config = {
   appid: 'wxc4e54add8c920608',
   appsecret: '84f56957e721158de4c742ddf9aa8ba7'
 };
-router.get('/', function(req, res){
-	console.log("set menu to wechat.");
-	var menu = fs.readFileSync("./routes/menu4HJK.json");
-	menu = JSON.parse(menu);
+router.all('/', function(req, res){
+	console.log("body: " + JSON.stringify(req.body.data));
+	for(var p in req.body.data){
+		console.log(p + ":" + req.body.data[p]);
+	}
+	
+	// var menu = fs.readFileSync("./routes/menu4HJK.json");
+	// menu = JSON.parse(menu);
+	var menu = req.body.data;
 	var API = wechat.API;
 	var api = new API(config.appid, config.appsecret);
 	api.createMenu(menu,function(){

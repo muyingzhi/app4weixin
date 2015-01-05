@@ -8,27 +8,30 @@
 			//---------第一层菜单
 			var btn = buttons[i];
 			var inpBtn = btn.querySelector("input");
-			menu.button[i] = {
-				"name": inpBtn.value,
-				"sub_button": []
-			}
-			//----------第二层菜单
-			var sub_btns = btn.querySelectorAll("li");
-			for(var j=0; j<sub_btns.length; j++){
-				var subBtn = sub_btns[j];
-				var inpSubName = subBtn.querySelector("input.menuName");
-				var inpSubKey  = subBtn.querySelector("input.menuKey");	
-				if(inpSubName.value){
-					menu.button[i].sub_button[j] = {
-						"name": inpSubName.value,
-						"key": inpSubKey.value,
-						"type": 'click',
-						"sub_button":[]
-					};
+			if(inpBtn.value){
+				//----有名称的菜单才会被记录
+				menu.button[i] = {
+					"name": inpBtn.value,
+					"sub_button": []
+				}
+				//----------第二层菜单
+				var sub_btns = btn.querySelectorAll("li");
+				for(var j=0; j<sub_btns.length; j++){
+					var subBtn = sub_btns[j];
+					var inpSubName = subBtn.querySelector("input.menuName");
+					var inpSubKey  = subBtn.querySelector("input.menuKey");	
+					if(inpSubName.value){
+						menu.button[i].sub_button[j] = {
+							"name": inpSubName.value,
+							"key": inpSubKey.value,
+							"type": 'click',
+							"sub_button":[]
+						};
+					}
 				}
 			}
 		}
-		console.log(menu);
+		//------向服务端发请求
 		var xhr = createXHR();
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState == 4 ){
@@ -41,7 +44,7 @@
 		}
 		xhr.open("post", "/EHRBrowser/setWechatMenu", true);
 		xhr.setRequestHeader("Content-Type", "text/json");
-		xhr.send(menu);
+		xhr.send(JSON.stringify(menu));
 	}
 	function createXHR(){
 		if(typeof XMLHttpRequest !="undefined"){

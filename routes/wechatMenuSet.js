@@ -7,28 +7,31 @@ var config = {
   appsecret: '84f56957e721158de4c742ddf9aa8ba7'
 };
 router.all('/', function(req, res){
-	console.log("body: " + JSON.stringify(req.body.data));
-	for(var p in req.body.data){
-		console.log(p + ":" + req.body.data[p]);
-	}
-	
-	// var menu = fs.readFileSync("./routes/menu4HJK.json");
-	// menu = JSON.parse(menu);
-	var menu = req.body.data;
+	var menu = {};
 	var API = wechat.API;
 	var api = new API(config.appid, config.appsecret);
-	api.createMenu(menu,function(){
-		console.log("菜单创建完成:");
-		for(var i=0;i<arguments.length;i++){
-			console.log(arguments[i]);
-		}
-		if(arguments[1]){
-			if(arguments[1].errcode){
-				res.send("错误："+arguments[1].errmsg);
-			}else{
-				res.send("更新菜单完成");
+
+	var txt = '';
+	req.on('data',function(chunk){
+		txt += chunk;
+	})
+	req.on('end',function(){
+		menu = JSON.parse(txt);
+		console.log(txt);
+	
+		api.createMenu(menu,function(){
+			console.log("菜单创建完成:");
+			for(var i=0;i<arguments.length;i++){
+				console.log(arguments[i]);
 			}
-		}
+			if(arguments[1]){
+				if(arguments[1].errcode){
+					res.send("错误："+arguments[1].errmsg);
+				}else{
+					res.send("更新菜单完成");
+				}
+			}
+		});
 	});
 });
 

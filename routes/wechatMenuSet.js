@@ -22,8 +22,14 @@ router.all('/', function(req, res){
 		for(var i=0;i<arguments.length;i++){
 			console.log(arguments[i]);
 		}
+		if(arguments[1]){
+			if(arguments[1].errcode){
+				res.send("错误："+arguments[1].errmsg);
+			}else{
+				res.send("更新菜单完成");
+			}
+		}
 	});
-	res.send("finish");
 });
 
 module.exports = router;

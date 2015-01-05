@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var wechat =   require('wechat');
+var setWechatMenu = require('./routes/wechatMenuSet');
+var getWechatMenu = require('./routes/wechatMenuGet');
+var pageWechatMenu = require('./routes/wechatMenuPage');
 var app = express();
 
 // view engine setup
@@ -23,12 +26,36 @@ app.use(express.static(path.join(__dirname, 'public')));
 var appdir = "/EHRBrowser";
 app.use(appdir + '/', routes);
 app.use(appdir + '/users', users);
-app.use(appdir + '/weixinVerfiy.do',wechat("haojiankang")
-    .text(function(message, req, res, next){
-        //var message = req.weixin;
-        //console.log("text message:" + JSON.stringfy(message));
+app.use(appdir + '/weixinVerfiy.do',wechat("haojiankang",function(req, res, next){
+    console.log("weixinVerfiy.do:");
+    if (req.method == "GET"){
+        res.send(req.query.echostr);
+        return;
+    }
+    var message = req.weixin;
+    for(var p in message){
+        console.log(p + ":" + message[p]);
+    }
+    if( message.MsgType == "text"){
         res.reply("Hello world:" + message.FromUserName + "。这是文本消息")
-    }).middlewarify());
+    } else if( message.MsgType == "event"){
+        if (message.Event == "CLICK"){
+            res.reply("CLICK:" + message.EventKey);
+        } else if(message.Event == "subscribe"){
+            console.log("用户关注:"+message.FromUserName);
+            res.reply("感谢您的关注");
+        } else if(message.Event == "unsubscribe"){
+            console.log("用户取消关注:"+message.FromUserName);
+            res.reply("欢迎加入我们！<br>使用说明：......");
+        }
+    } else {
+        res.reply("未处理的类型："+message.MsgType);
+    }
+        
+}));
+app.use(appdir + "/setWechatMenu", setWechatMenu);
+app.use(appdir + "/getWechatMenu", getWechatMenu);
+app.use(appdir + "/pageWechatMenu", pageWechatMenu);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

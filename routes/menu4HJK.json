@@ -1,0 +1,66 @@
+{
+		"button": [
+		{
+			"name": "1预约",
+			"sub_button": [
+			{
+				"type": "click",
+				"name": "检查",
+				"key": "yy_check",
+				"sub_button": []
+			},{
+				"type": "click",
+				"name": "住院",
+				"key": "yy_inp",
+				"sub_button": []
+			},{
+				"type": "click",
+				"name": "门诊",
+				"key": "yy_outp",
+				"sub_button": []
+			}]
+		},
+		{
+			"name": "2健康档案",
+			"sub_button": [
+			{
+				"type": "click",
+				"name": "基本信息",
+				"key": "ehr_base",
+				"sub_button": []
+			},{
+				"type": "click",
+				"name": "体检记录",
+				"key": "ehr_checks",
+				"sub_button": []
+			},{
+				"type": "click",
+				"name": "就诊记录",
+				"key": "ehr_clinic",
+				"sub_button": []
+			},{
+			"name": "健康网",
+			"type": "view",
+			"url": "http://www.haojiankang.com"
+			}]
+		},{
+			"name": "3上传资料",
+			"sub_button": [
+			{
+				"name": "处方图片",
+				"type": "pic_photo_or_album",
+				"key": "upload_presc",
+				"sub_button": []
+			},{
+				"name": "血压数据",
+				"type": "pic_photo_or_album",
+				"key": "upload_xueya",
+				"sub_button": []
+			},{
+				"name": "我的位置",
+				"type": "location_select",
+				"key": "upload_location",
+				"sub_button": []
+			}]
+		}]
+	}

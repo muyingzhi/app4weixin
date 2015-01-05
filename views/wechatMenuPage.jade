@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  form(post=setWechatMenu)
+    each one,index in button
+      div.menu01
+        span 一级菜单#{index+1}:
+        input(value=one.name)
+        ul.menu02
+          -for(var i=0;i<one.sub_button.length;i++){
+            li
+              input(value= one.sub_button[i].name)
+            p
+          -}
+    button(type=submit,value=submit) 提交
+script.
+-var butt = document.getElementByTag("button");
+-butt.onclick = function(){
+-	
+-}

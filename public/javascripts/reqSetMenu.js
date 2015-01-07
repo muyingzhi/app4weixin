@@ -20,13 +20,25 @@
 					var subBtn = sub_btns[j];
 					var inpSubName = subBtn.querySelector("input.menuName");
 					var inpSubKey  = subBtn.querySelector("input.menuKey");	
+					var selType = subBtn.querySelector("select");
+					var keyType = null;
+					var selectedOptions = getSelectedOptions(selType);
+					if (!selectedOptions){
+						keyType = selectedOptions[0].value;
+					}else{
+						keyType = 'click';
+					}
 					if(inpSubName.value){
 						menu.button[i].sub_button[j] = {
 							"name": inpSubName.value,
-							"key": inpSubKey.value,
-							"type": 'click',
+							"type": keyType,
 							"sub_button":[]
 						};
+						if (keyType=='view'){
+							menu.button[i].sub_button[j].url = inpSubKey.value
+						} else {
+							menu.button[i].sub_button[j].key = inpSubKey.value
+						}
 					}
 				}
 			}
@@ -65,5 +77,16 @@
 			}
 			return new ActiveXObject(arguments.callee.activeXString);
 		}
+	}
+	function getSelectedOptions(selectbox){
+		var result = new Array();
+		var option = null;
+		for (var i=0, len = selectbox.options.length;i<len;i++){
+			option = selectbox.options[i];
+			if (option.selected){
+				result.push(option);
+			}
+		}
+		return result;
 	}
 })()

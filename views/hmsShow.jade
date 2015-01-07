@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  table
+    tr
+      td 姓名
+      td 张三
+    tr
+      td 身高
+      td 170cm
+    tr
+      td(cols=2) 其它
+    tr
+      td 请扫描
+      td 
+        image#qrcode(width=100,height=100)
+  script(src='javascripts/hmsShow.js')  

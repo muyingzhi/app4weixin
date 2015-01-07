@@ -21,6 +21,17 @@ app.use('/weixinVerfiy.do',wechat("haojiankang",function(req, res, next){
         res.reply("Hello world:" + message.FromUserName + "。这是文本消息")
     } else if( message.MsgType == "event"){
         if (message.Event == "CLICK"){
+            if (message.EventKey=="yy_getEcg"){
+                //-----回复体检报告图片
+                res.reply([
+                  {
+                    title: '体检报告',
+                    description: '体检日期：2015-01-02',
+                    picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+                    url: 'http://nodeapi.cloudfoundry.com/'
+                  }
+                ])
+            }
             res.reply("CLICK:" + message.EventKey);
         } else if(message.Event == "subscribe"){
             console.log("用户关注:"+message.FromUserName);

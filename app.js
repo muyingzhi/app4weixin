@@ -26,6 +26,9 @@ app.use('/users', users);
 var appWechat = require('./appWechat');
 app.use('/EHRBrowser',appWechat);
 
+var router4HIS = requie('.app4HIS');
+app.use('/his',router4HIS);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

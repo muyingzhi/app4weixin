@@ -65,8 +65,9 @@ app.use('/weixinVerfiy.do',wechat("haojiankang",function(req, res, next){
 app.use(appdir + "/setWechatMenu", setWechatMenu);
 app.use(appdir + "/getWechatMenu", getWechatMenu);
 app.use(appdir + "/pageWechatMenu", pageWechatMenu);
-//-------取二维码，参数?id=1000
+
 app.use(appdir + "/getWechatQrcode", wechatQrcodeGet);
 app.use(appdir + "/pageHmsShow", pageHmsShow);
+
 
 module.exports = app;

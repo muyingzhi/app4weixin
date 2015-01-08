@@ -62,6 +62,7 @@ app.use('/weixinVerfiy.do',wechat("haojiankang",function(req, res, next){
     }
         
 }));
+//-----------设置微信菜单，post提交
 app.use(appdir + "/setWechatMenu", setWechatMenu);
 app.use(appdir + "/getWechatMenu", getWechatMenu);
 app.use(appdir + "/pageWechatMenu", pageWechatMenu);

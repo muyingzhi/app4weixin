@@ -25,9 +25,9 @@ app.use('/users', users);
 //-----微信接口目录
 var appWechat = require('./appWechat');
 app.use('/EHRBrowser',appWechat);
-
-var router4HIS = requie('.app4HIS');
-app.use('/his',router4HIS);
+//-----
+var appHJK = require('./hjk4wechat');
+app.use('/hjk4wechat',appHJK)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

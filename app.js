@@ -23,8 +23,10 @@ app.use(express.static(path.join(__dirname,  '/public')));
 app.use('/', routes);
 app.use('/users', users);
 //-----微信接口目录
-var appWechat = require('./appWechat');
-app.use('/EHRBrowser',appWechat);
+//var appWechat = require('./appWechat');
+//app.use('/EHRBrowser',appWechat);
+var router4HIS = requie('.app4HIS');
+app.use('/his',router4HIS);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

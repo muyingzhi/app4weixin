@@ -28,9 +28,6 @@ app.use('/EHRBrowser',appWechat);
 //-----
 var appHJK = require('./hjk4wechat');
 app.use('/hjk4wechat',appHJK)
-//-----
-var router4HIS = requie('.app4HIS');
-app.use('/his',router4HIS);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

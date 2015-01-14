@@ -13,7 +13,7 @@ var hms = new HMS();
 var app = express();
 var appdir ='';// "/EHRBrowser";
 app.use(express.static(path.join(__dirname,  '/public')));
-
+//-----接收来自微信的消息
 app.use('/weixinVerfiy.do',wechat("haojiankang",function(req, res, next){
     if (req.method == "GET"){
         console.log("------wechat GET echostr:"+req.query.echostr);
@@ -69,5 +69,11 @@ app.use(appdir + "/pageWechatMenu", pageWechatMenu);
 //-------取二维码，参数?id=1000
 app.use(appdir + "/getWechatQrcode", wechatQrcodeGet);
 app.use(appdir + "/pageHmsShow", pageHmsShow);
-
+//----健康档案页面
+var getEHR = require("./routes/r_p_EHRshow");
+app.use(appdir + "/getEHR" , getEHR);
+var getOAuthUser = require("./routes/r_wx_oauth2");
+app.use(appdir + "/oauth2" , getOAuthUser);
+var saveUser = require("./routes/r_p_UserSave");
+app.use(appdir + "saveUser", saveUser);
 module.exports = app;

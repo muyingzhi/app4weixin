@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  form(post=registeUser)
+    input#openid(value=openid)
+    input#nickname(value=nickname)
+    input#sex(value=sex)
+    input#city(value=city)
+    input#province(value=province)
+    inpu#country(value=country)
+    img(src=headimgurl)
+    input#privilege(value=privilege)
+    input#btnSave(type='button',value='保存')
+  script(src='javascripts/userRegiste.js')
+

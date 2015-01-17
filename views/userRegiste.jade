@@ -1,16 +1,24 @@
 extends layout
 
 block content
-  h1= title
+  h1= nickname
   form(post=registeUser)
     input#openid(value=openid)
+    p
     input#nickname(value=nickname)
+    p
     input#sex(value=sex)
+    p
     input#city(value=city)
+    p
     input#province(value=province)
+    p
     inpu#country(value=country)
+    p
     img(src=headimgurl)
+    p
     input#privilege(value=privilege)
+    p
     input#btnSave(type='button',value='保存')
   script(src='javascripts/userRegiste.js')
 

@@ -15,6 +15,7 @@
     "jade": "~1.6.0",
     "wechat":"*",
     "mysql":"*",
-    "socket.io":"*"
+    "socket.io":"*",
+    "bootstrap":"*"
   }
 }

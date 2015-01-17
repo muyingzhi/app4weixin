@@ -32,7 +32,17 @@ app.use('/weixinVerfiy.do',wechat("haojiankang",function(req, res, next){
             if (message.EventKey=="yy_getEcg"){
                 //-----回复体检报告图片
                 res.reply(hms.showCheckPage());
-            }else{
+            }else if (message.EventKey=="yy_getEHR"){
+                //----认证授权
+                var user = require('./routes/WxUser');
+                var isAuthorize = user.authorize(message.FromUserName);
+                if(isAuthorize){
+                    //-----跳转到页面
+                }else{
+                    //-------
+                }
+                res.send("");
+            }else {
                 res.reply("CLICK:" + message.EventKey);
             }
         } else if(message.Event == "subscribe"){
@@ -54,6 +64,9 @@ app.use('/weixinVerfiy.do',wechat("haojiankang",function(req, res, next){
             //-----回复体检报告图片
             console.log("-------SCAN:1000回复体检报告图片")
             res.reply(hms.showCheckPage());
+        } else if ( message.Event=="VIEW"){
+            //------跳转到对应的url
+            res.send("");
         } else {
             res.reply("event:"+message.Event + ";"+message.EventKey);
         }
@@ -75,5 +88,5 @@ app.use(appdir + "/getEHR" , getEHR);
 var getOAuthUser = require("./routes/r_wx_oauth2");
 app.use(appdir + "/oauth2" , getOAuthUser);
 var saveUser = require("./routes/r_p_UserSave");
-app.use(appdir + "saveUser", saveUser);
+app.use(appdir + "/saveUser", saveUser);
 module.exports = app;

@@ -3,21 +3,23 @@ extends layout
 block content
   h1= title
   form(post=setWechatMenu)
-    each one,index in button
-      div.menu01
-        span 一级菜单#{index+1}:
-        input(value=one.name)
-        ul.menu02
-          -for(var i=0;i<one.sub_button.length;i++){
-            li
-              input.menuName(value= one.sub_button[i].name)
-              select.menuType
-                option(value='click') CLICK
-                option(value='view') view
-                option(value='scancode_push') scancode_push
-              input.menuKey(value=one.sub_button[i].key)
-            p
-          -}
-    input#submitMenu(type='button',value='submit')
+    div(class="row")
+      each one,index in button
+        div(class="col-sm-12 col-md-4 panel panel-info")
+          div(class="panel-heading") 一级菜单#{index+1}:
+            input(value=one.name)
+          ul.menu02(class="list-group")
+            -for(var i=0;i<one.sub_button.length;i++){
+              li(class="list-group-item")
+                input.menuName(value= one.sub_button[i].name)
+                select.menuType
+                  option(value='click') CLICK
+                  option(value='view') view
+                  option(value='scancode_push') scancode_push
+                input.menuKey(value=one.sub_button[i].key)
+              p
+            -}
+    div(class="row")
+      input#submitMenu(type='button',value='提交',class="btn btn-success")
   script(src='javascripts/reqSetMenu.js')
 

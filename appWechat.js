@@ -11,7 +11,7 @@ var pageHmsShow = require('./routes/r_p_HmsShow');
 var HMS = require('./hms4wechat');
 var hms = new HMS();
 var app = express();
-var appdir ='';// "/EHRBrowser";
+var appdir ='';//
 app.use(express.static(path.join(__dirname,  '/public')));
 //-----接收来自微信的消息
 app.use('/weixinVerfiy.do',wechat("haojiankang",function(req, res, next){

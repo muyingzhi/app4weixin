@@ -1,24 +1,32 @@
 extends layout
 
 block content
-  h1= nickname
-  form(post=registeUser)
-    input#openid(value=openid)
-    p
-    input#nickname(value=nickname)
-    p
-    input#sex(value=sex)
-    p
-    input#city(value=city)
-    p
-    input#province(value=province)
-    p
-    inpu#country(value=country)
-    p
-    img(src=headimgurl)
-    p
-    input#privilege(value=privilege)
-    p
-    input#btnSave(type='button',value='保存')
+    div(class="row")
+      div(class='panel panel-info')
+        div(class="panel-heading")
+            h1= nickname
+        div(class="panel-body")
+          form(post=registeUser,role="form")
+            div(class="form-group")
+                img(src=headimgurl,width='100',height='100')
+            div(class="form-group")
+                input#openid(value=openid)
+            div(class="form-group")
+                input#nickname(value=nickname)
+            div(class="form-group")
+                input#sex(value=sex)
+            div(class="form-group")
+                input#city(value=city)
+            div(class="form-group")
+                input#province(value=province)
+            div(class="form-group")
+                inpu#country(value=country)
+            div(class="form-group")
+                input#privilege(value=privilege)
+            div(class="form-group")
+                labe 纸质档案号:
+                input#archid
+            div(class="form-group")
+                input#btnSave(type='button',value='保存',class="btn btn-success")
   script(src='javascripts/userRegiste.js')
 

@@ -1,10 +1,11 @@
 doctype html
-html
+html(lang="zh-CN")
   head
+    meta(name="viewport", content="width=device-width,initial-scale=1")
     title= title
-    link(rel='stylesheet', href='stylesheets/style.css')
     link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='stylesheets/bootstrap-theme.min.css')
     javascript( src='bootstrap.min.js')
-  body(class="container")
-    block content
+  body
+    div(class="container")
+      block content

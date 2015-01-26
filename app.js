@@ -22,9 +22,13 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
 //-----微信接口目录
 var appWechat = require('./appWechat');
 app.use('/EHRBrowser',appWechat);
+//-----使用html 的路由
+var html = require('./app4html');
+app.use('/html', html);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,5 +60,4 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 module.exports = app;

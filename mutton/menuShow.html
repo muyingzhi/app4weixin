@@ -1,31 +1,49 @@
-<html lang="zh-CN">
+<!doctype html>
+<html lang="zh-CN" ng-app>
 <head>
 	<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.min.css">
 </head>
-<body class="container">
+<body class="container"  ng-controller="Mycontroller">
 	<div class="row">
-		<h1><%=title %></h1>
+		<h2>{{data.title}}</h2>
 	</div>
 	<div class="row">
-		<div class="col-xs-12 col-md-4">
+		<div class="col-xs-12 col-md-4" ng-repeat="branch in data.menu">
 			<div class="panel panel-info">
-				<div class="panel-heading">位置1</div>
-				<div class="panel-body"></div>
+				<div class="panel-heading">
+					<label>{{branch.name}}</label>
+					<input id="menu01" value="">
+				</div>
+				<div class="panel-body">
+					<ul class="list-group">
+						<li class="list-group-item" ng-repeat="sub in branch.sub_button">
+							<label for="menuName">子项</label>
+							<input id="menuName" size="8"/>
+							<label for="menuName">类型</label>
+							<select id="menuType">
+								<option value="click">click</option>
+								<option value="view">链接网页</option>
+								<option value="scancode_push">扫一扫</option>
+							</select><p>
+							<label for="menuName">键值</label>
+							<input id="menuKey" size="30"/>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-md-4">
-			<div class="panel panel-info">
-				<div class="panel-heading">位置2</div>
-				<div class="panel-body"></div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-md-4">
-			<div class="panel panel-info">
-				<div class="panel-heading">位置3</div>
-				<div class="panel-body"></div>
-			</div>
-		</div>
+	</div>
+	<div class="row">
+		<button type="button" class="btn btn-success">
+			<span class="glyphion glyphion-save"></span>更新
+		</button>
 	</div>
 	<script type="text/javascript" src="javascripts/angular.min.js"></script>
+	<script type="text/javascript" src="javascripts/menuShowCode.js"></script>
+	<script type="text/javascript">
+	window.modeData = <%- JSON.stringify(data) %>;
+	//----来自node服务端的数据被写入modeData，这里需要尽快在controller中另存到变量
+	</script>
 </body>
+</html>

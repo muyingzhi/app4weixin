@@ -47,7 +47,8 @@ app.use('/verfiy',
 );
 app.use("/userInfo", require("./mutton/findUser"));
 app.use("/menuInfo", require("./mutton/showMenu"));
+app.use("/saveMenu4wx", require("./mutton/saveMenu4wx"));
 app.use("/", function(req, res){
-    res.send("index.html");
+    res.send({"message":"未找到的url："+req.path});
 })
 module.exports = app;

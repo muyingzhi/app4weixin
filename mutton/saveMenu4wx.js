@@ -6,7 +6,7 @@ var express = require('express');
 var router = express.Router();
 var wechat = require('wechat');
 var fs = require('fs');
-var config = require('../app_config');
+var config = require('./config');
 router.all('/', function(req, res){
 	var menu = {};
 	var API = wechat.API;
@@ -14,10 +14,11 @@ router.all('/', function(req, res){
 	var api = new API(config.appid, config.appsecret);
 	var oauth = new OAuth(config.appid, config.appsecret);
 	var txt = '';
+	console.log("save menu ......");
 	req.on('data',function(chunk){
-		txt += chunk;
+		txt += chunk;//--接收数据
 	})
-	req.on('end',function(){
+	req.on('end',function(){//--数据接收完毕
 		if(!txt){
 			res.send("no data");
 			return;
@@ -29,16 +30,18 @@ router.all('/', function(req, res){
 				for(var j=0;j<menu.button[i].sub_button.length;j++){
 					var url = menu.button[i].sub_button[j].url;
 					if(url){
-						url = oauth.getAuthorizeURL(url,"hjk","snsapi_userinfo");
+						url = oauth.getAuthorizeURL(url,"shopping","snsapi_userinfo");
 						menu.button[i].sub_button[j].url = url;
 					}
 				}
 			}
 		}
-		//---
-		api.createMenu(menu,function(error, result){
-			if(error){
-				res.send("错误："+result.errmsg+result.errcode);
+		console.log("向微信提交菜单");
+		//---向微信提交菜单
+		api.createMenu(menu,function(err, result){
+			if(err){
+				if(!result){resunt = {errmsg:"严重错误",errcode:"00"};}
+				res.send("微信消息："+result.errmsg+result.errcode);
 			}else{
 				res.send("更新菜单完成");
 			}

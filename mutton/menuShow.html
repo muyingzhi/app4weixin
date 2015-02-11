@@ -22,7 +22,7 @@
 							<input type="text" size="8" ng-model="sub.name"/><p>
 							<label>类型</label>
 							<select ng-model="sub.type" 
-								ng-options="opType.name for opType in types">
+								ng-options="opType.name as opType.text for opType in types">
 								
 							</select><p>
 							<label >键值</label>

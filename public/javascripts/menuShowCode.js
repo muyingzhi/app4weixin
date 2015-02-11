@@ -1,7 +1,6 @@
 function Mycontroller($scope,$http){
 	var weixinData = window.modeData;//----接收来自node的数据
 	var menus = weixinData.menu;
-
 	menus = initMenu(menus);//----规范需要的显示数据
 	//-----
 	$scope.data = {};
@@ -69,9 +68,9 @@ function Mycontroller($scope,$http){
 				for(var j=0; j<sub_btns.length; j++){
 					var sub = sub_btns[j];
 					
-					if(sub.name){
+					if(sub.name){//----有名字才会加为菜单
 						if(sub.type){
-							var subType = sub.type.name;
+							var subType = sub.type;
 
 							menu.button[i].sub_button[j] = {
 								"name": sub.name,

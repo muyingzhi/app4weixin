@@ -9,6 +9,7 @@ var users = require('./routes/users');
 
 var app = express();
 process.env.PORT=8080;
+console.log("listen to "+process.env.PORT);
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));

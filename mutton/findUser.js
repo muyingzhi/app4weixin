@@ -21,7 +21,6 @@ app.use('/', function(req, res) {
     			res.render("userInfo", data);
     		});
     	}
-
     });
 });
 

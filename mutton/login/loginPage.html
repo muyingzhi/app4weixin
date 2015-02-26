@@ -1,0 +1,28 @@
+<% include ../common/header.html %>
+<div class="row">
+	<form action="dologin" class="form-horizontal" method="post">
+		<fieldset>
+			<legend>用户登录</legend>
+			<div class="control-group">
+			<label class="control-label" for="username">用户名</label>
+			<div class="controls">
+			<input type="text" class="input-xlarge" id="username" name="username" value="admin">
+			</div>
+			</div>
+			<div class="control-group">
+			<label class="control-label" for="password">密码</label>
+			<div class="controls">
+			<input type="password" class="input-xlarge" id="password" name="password" value="manager">
+			</div>
+			</div>
+			<div class="form-actions">
+			<input type="submit" class="btn btn-primary" value="登陆"></input>
+			<input type="button" calss="btn btn-info" value="重置" id="btn"></input>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<% include ../common/footer.html %>
+<script type="text/javascript" src="login.js"></script>
+</body>
+</html>

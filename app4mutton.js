@@ -1,87 +1,64 @@
 var express = require('express');
 var ejs = require('ejs');
 var path = require("path");
-var body = require("body-parser")
 var http = require('http');
-// SessionStore = require("session-mongoose")(express);
-// var store = new SessionStore({
-//     url: "mongodb://localhost/session",
-//     interval: 120000
-// });
-var session = require('express-session');
+var bodyParser = require("body-parser");
+var session = require('cookie-session');
 var app = express();
-
-// app.use(express.favicon());
-//app.use(express.logger('dev'));
-// app.use(express.bodyParser());
-// app.use(express.methodOverride());
-// app.use(express.cookieParser());
-// app.use(express.cookieSession({
-//     secret: 'fens.me'
-// }));
-// app.use(express.session({
-//     secret: 'fens.me',
-//     store: store,
-//     cookie: {
-//         maxAge: 900000
-//     }
-// }));
-
 //-------------views engine for HTML
-app.set('views', path.join(__dirname, 'mutton/html'));
+var views = [];
+views = path.join(__dirname, 'mutton');
+//----能够不区分子目录的引用html文件,而且可以直接被访问到
+app.set('views', views);
 app.engine('html', ejs.renderFile);
 app.set('view engine', 'html'); // app.set('view engine', 'ejs');
+//----js文件目录
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/mutton/login')));
+app.use(express.static(path.join(__dirname, '/mutton/menu')));
 
-app.use('/verfiy', require("./mutton/routes/verfiy4weixin"));
-// app.use(session({
-//     genid: function(req) {
-//         return genuuid() // use UUIDs for session IDs 
-//       },
-//     secret: 'keyboard cat'
-// }));
+//----设置session
 app.use(session({
-    secret: 'keyboard cat',
-    cookie: {
-        maxAge: 60000
-    }
+    name: 'Msessionid',
+    keys: ['key1','key2'],
+    secret: 'key secret',
+    maxAge: 900000
 }));
-app.use(function(req, res) {
-    var sess = req.session;
-    if (sess.views) {
-        sess.views++
-            res.setHeader('Content-Type', 'text/html')
-        res.write('<p>views: ' + sess.views + '</p>')
-        res.write('<p>expires in: ' + (sess.cookie.maxAge / 1000) + 's</p>')
-        res.end()
-    } else {
-        sess.views = 1
-        res.end('welcome to the session demo. refresh!')
-    }
-});
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json 
+app.use(bodyParser.json())
+//---------不需要登录的route
+app.get( '/verfiy', require("./mutton/routes/verfiy4weixin").weixinVerfiy);
+app.post('/verfiy', require("./mutton/routes/verfiy4weixin").weixinServer);
 
+//-----登录页面
+app.use("/login.html", function(req, res) {
+    res.render("login/loginPage", function(err, html){
+        if(err){
+            console.log(err);
+        }
+        res.send(html);
+    });
+});
+app.use("/dologin", require("./mutton/routes/doLogin").dologin);
+app.use("/javascripts/jquery.min.map", function(req, res){
+    res.send("");
+})
+// 检查session，以下的router需要用户登录
 app.use(function(req, res, next) {
     var sess = req.session;
-    console.log(sess);
     if (sess && sess.user) {
         res.locals.user = sess.user;
+    } else{
+        res.redirect("login.html");
     }
-    //res.locals.user = req.session.user;
-    // var err = req.session.error;
-    // //delete req.session.error;
-    // res.locals.message = '';
-    // if (err) res.locals.message = '<div class="alert alert-error">' + err + '</div>';
     next();
 });
-app.use("/login.html", function(req, res) {
-    res.render("login");
-});
-//-----登录url
-app.use("/dologin", require("./mutton/routes/doLogin"));
+app.use("/menuInfo", require("./mutton/routes/menu4wx").showMenu);
+app.use("/saveMenu4wx", require("./mutton/routes/menu4wx").saveMenu4wx);
 app.use("/userInfo", require("./mutton/findUser"));
-app.use("/menuInfo", require("./mutton/showMenu"));
-app.use("/saveMenu4wx", require("./mutton/saveMenu4wx"));
-app.use("/", function(req, res) {
+app.use(function(req, res) {
     res.send({
         "message": "未找到的url：" + req.path
     });

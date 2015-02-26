@@ -20,15 +20,14 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', routes);
 app.use('/users', users);
-
+//app.use(express.favicon());
 //-----微信接口目录
 var appWechat = require('./appWechat');
 app.use('/EHRBrowser',appWechat);
 //-----使用html 的路由
-var html = require('./app4html');
-app.use('/html', html);
-var mutton = require('./app4mutton');
-app.use('/mutton', mutton);
+app.use('/html', require('./app4html'));
+//----
+app.use('/mutton', require('./app4mutton'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -55,9 +54,10 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+    // res.render('error', {
+    //     message: err.message,
+    //     error: {}
+    // });
+    res.send(err.message);
 });
 module.exports = app;

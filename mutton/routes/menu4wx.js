@@ -1,13 +1,24 @@
-/*
-*接收前端的请求，整理数据成菜单json，
-*通过api创建菜单，然后返回消息
-*/
-var express = require('express');
-var router = express.Router();
 var wechat = require('wechat');
-var fs = require('fs');
-var config = require('./config');
-router.all('/', function(req, res){
+var config = require('../config');
+
+exports.showMenu = function(req, res){
+	var API = wechat.API;
+	var api = new API(config.appid, config.appsecret);
+	api.getMenu(function(err, result){
+		//----从微信获取菜单
+		var sender={};
+		sender.data = {};
+		if (err) {
+			sender.data.title = "店铺管家的菜单(有异常：code="+err.code+")";
+			sender.data.menu = [];
+		}else{
+			sender.data.title = "店铺管家的菜单";
+			sender.data.menu = result.menu.button;
+		}
+		res.render("menu/menuShow.html", sender);
+	});
+};
+exports.saveMenu4wx = function(req, res){
 	var menu = {};
 	var API = wechat.API;
 	var OAuth= wechat.OAuth;
@@ -30,13 +41,12 @@ router.all('/', function(req, res){
 				for(var j=0;j<menu.button[i].sub_button.length;j++){
 					var url = menu.button[i].sub_button[j].url;
 					if(url){
-						url = oauth.getAuthorizeURL(url,"shopping","snsapi_userinfo");
+						//url = oauth.getAuthorizeURL(url,"shopping","snsapi_userinfo");
 						menu.button[i].sub_button[j].url = url;
 					}
 				}
 			}
 		}
-		console.log("向微信提交菜单");
 		//---向微信提交菜单
 		api.createMenu(menu,function(err, result){
 			if(err){
@@ -47,6 +57,4 @@ router.all('/', function(req, res){
 			}
 		});
 	});
-});
-
-module.exports = router;
+};

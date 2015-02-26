@@ -46,11 +46,17 @@ function Mycontroller($scope,$http){
 						"sub_button": []
 					};//-------初始化
 					menuBranch.sub_button[j] = menuSub;
+				}else{
+					//----为显示需要，做如下修改
+					if(menuSub.type =="view"){
+						menuSub.key = menuSub.url;
+					}
 				}
 			}
 		}
 		return menus;
 	}
+	//----表单数据转换为微信菜单
 	function makeMeun4Form(){
 		var datas = $scope.data.menu;
 		var menu = {"button": []};

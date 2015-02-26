@@ -2,20 +2,19 @@
 *接收前端的请求，整理数据成菜单json，
 *通过api创建菜单，然后返回消息
 */
-var express = require('express');
-var router = express.Router();
+exports.dologin = function(req, res){
+	var user={
+	    username:"admin",
+	    password:"manager"
+	};
 
-var user={
-    username:"admin",
-    password:"manager"
-};
+	var query = req.body;
+	console.log(query);
+	if(query.username==user.username && query.password==user.password){
+		req.session.user = query;//用户信息写入session
 
-router.all('/', function(req, res){
-	if(req.body.username==user.username && req.body.password==user.password){
-        res.redirect("/mutton/menuInfo");
+        return res.redirect("menuInfo");
     }else{
-        res.redirect("/mutton/html/login.html");
+        res.redirect("login.html");
     }
-});
-
-module.exports = router;
+};

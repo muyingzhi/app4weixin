@@ -9,10 +9,10 @@ exports.showMenu = function(req, res){
 		var sender={};
 		sender.data = {};
 		if (err) {
-			sender.data.title = "店铺管家的菜单(有异常：code="+err.code+")";
+			sender.data.title = config.title + "(有异常：code="+err.code+")";
 			sender.data.menu = [];
 		}else{
-			sender.data.title = "店铺管家的菜单";
+			sender.data.title = config.title;
 			sender.data.menu = result.menu.button;
 		}
 		res.render("menu/menuShow.html", sender);

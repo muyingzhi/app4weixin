@@ -36,8 +36,9 @@ app.post('/verfiy', require("./mutton/routes/verfiy4weixin").weixinServer);
 app.use("/login.html", function(req, res) {
     res.render("login/loginPage", function(err, html){
         if(err){
-            console.log(err);
+            console.log("LOGIN PAGE is error:"+err);
         }
+        console.log("redirect to Login.html");
         res.send(html);
     });
 });
@@ -50,10 +51,10 @@ app.use(function(req, res, next) {
     var sess = req.session;
     if (sess && sess.user) {
         res.locals.user = sess.user;
+        next();
     } else{
         res.redirect("login.html");
     }
-    next();
 });
 app.use("/logout", require("./mutton/routes/doLogin").logout);
 app.use("/menuInfo", require("./mutton/routes/menu4wx").showMenu);

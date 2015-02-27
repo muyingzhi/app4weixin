@@ -26,7 +26,6 @@ function Mycontroller($scope,$http){
 		});
 		
 	}
-
 	function initMenu(menus){
 		if (!menus){ menus = [];}
 		//-------微信菜单转化为标准的3*5的数组

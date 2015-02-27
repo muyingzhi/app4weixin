@@ -25,7 +25,6 @@ exports.saveMenu4wx = function(req, res){
 	var api = new API(config.appid, config.appsecret);
 	var oauth = new OAuth(config.appid, config.appsecret);
 	var txt = '';
-	console.log("save menu ......");
 	req.on('data',function(chunk){
 		txt += chunk;//--接收数据
 	})

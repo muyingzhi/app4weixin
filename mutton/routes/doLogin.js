@@ -15,6 +15,14 @@ exports.dologin = function(req, res){
 
         return res.redirect("menuInfo");
     }else{
-        res.redirect("login.html");
+        //return res.render("login/loginPage",query);
+        return res.redirect("login.html");
     }
+};
+exports.logout = function(req, res){
+	
+	if(req.session && req.session.user){
+		req.session.user = null;//用户信息清空
+	}
+    return res.redirect("login.html");
 };

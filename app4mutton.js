@@ -8,7 +8,7 @@ var app = express();
 //-------------views engine for HTML
 var views = [];
 views = path.join(__dirname, 'mutton');
-//----能够不区分子目录的引用html文件,而且可以直接被访问到
+//----设置views的目录，能够不区分子目录的引用html文件,而且可以直接被访问到
 app.set('views', views);
 app.engine('html', ejs.renderFile);
 app.set('view engine', 'html'); // app.set('view engine', 'ejs');
@@ -55,6 +55,7 @@ app.use(function(req, res, next) {
     }
     next();
 });
+app.use("/logout", require("./mutton/routes/doLogin").logout);
 app.use("/menuInfo", require("./mutton/routes/menu4wx").showMenu);
 app.use("/saveMenu4wx", require("./mutton/routes/menu4wx").saveMenu4wx);
 app.use("/userInfo", require("./mutton/findUser"));

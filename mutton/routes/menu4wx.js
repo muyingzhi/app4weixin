@@ -15,7 +15,7 @@ exports.showMenu = function(req, res){
 			sender.data.title = config.title;
 			sender.data.menu = result.menu.button;
 		}
-		res.render("menu/menuShow.html", sender);
+		res.render("menu/menuShow", sender);
 	});
 };
 exports.saveMenu4wx = function(req, res){

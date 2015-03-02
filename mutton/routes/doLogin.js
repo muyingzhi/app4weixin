@@ -2,6 +2,7 @@
 *接收前端的请求，整理数据成菜单json，
 *通过api创建菜单，然后返回消息
 */
+
 exports.dologin = function(req, res){
 	var user={
 	    username:"admin",
@@ -12,7 +13,10 @@ exports.dologin = function(req, res){
 	console.log(query);
 	if(query.username==user.username && query.password==user.password){
 		req.session.user = query;//用户信息写入session
-
+		//----记录登录时间
+		var usersManager = require("./UsersManager");
+		usersManager.loginRecord(query);
+		// 显示菜单页面
         return res.redirect("menuInfo");
     }else{
         //return res.render("login/loginPage",query);

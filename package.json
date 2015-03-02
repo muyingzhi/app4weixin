@@ -16,6 +16,7 @@
     "wechat":"*",
     "mysql":"*",
     "socket.io":"*",
-    "bootstrap":"*"
+    "bootstrap":"*",
+    "avoscloud-sdk":"latest"
   }
 }

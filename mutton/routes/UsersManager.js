@@ -3,7 +3,6 @@ var config = require('../config');
 var AV = require('avoscloud-sdk').AV;
 AV.initialize("8x87xn4neztpymeej3lpqgr0bzdmamxjtx73yheg2jpzr6vn", "91k3852kdiqieilt49t5zmcfnfmx18uemvub41bcqth7j6t7");
 
-
 //----记录admin用户登录时间到cleanCloud
 exports.loginRecord = function(adminUser){
     console.log("记录admin用户登录时间到cleanCloud");

@@ -1,6 +1,5 @@
 var wechat = require('wechat');
 var config = require('../config');
-
 exports.showMenu = function(req, res){
 	var API = wechat.API;
 	var api = new API(config.appid, config.appsecret);
@@ -40,7 +39,7 @@ exports.saveMenu4wx = function(req, res){
 				for(var j=0;j<menu.button[i].sub_button.length;j++){
 					var url = menu.button[i].sub_button[j].url;
 					if(url){
-						//url = oauth.getAuthorizeURL(url,"shopping","snsapi_userinfo");
+						url = oauth.getAuthorizeURL(url,"shopping","snsapi_base");
 						menu.button[i].sub_button[j].url = url;
 					}
 				}

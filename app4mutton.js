@@ -18,7 +18,7 @@ app.set('view engine', 'html'); // app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(path.join(__dirname, '/mutton/login')));
 app.use(express.static(path.join(__dirname, '/mutton/menu')));
-
+app.use(express.static(path.join(__dirname, '/mutton/train')));
 //----设置session
 app.use(session({
     name: 'Msessionid',
@@ -61,6 +61,12 @@ app.use("/dologin", require("./mutton/routes/doLogin").dologin);
 app.use("/javascripts/jquery.min.map", function(req, res){
     res.send("");
 })
+app.use("/trainMain", function(req,res){
+    res.render("train/main");//----培训中心页面
+});
+app.use("/employee_manual", function(req,res){
+    res.render("train/employee_manual");//----培训中心页面
+});
 // 检查session，以下的router需要用户登录
 app.use(function(req, res, next) {
     var sess = req.session;
@@ -73,6 +79,7 @@ app.use(function(req, res, next) {
 });
 app.use("/logout", require("./mutton/routes/doLogin").logout);
 app.use("/menuInfo", require("./mutton/routes/menu4wx").showMenu);
+
 app.use("/saveMenu4wx", require("./mutton/routes/menu4wx").saveMenu4wx);
 app.use(function(req, res) {
     res.send({

@@ -1,7 +1,6 @@
 function Mycontroller($scope,$http){
 	var weixinData = window.modeData;//----接收来自node的数据
 	var menus = weixinData.menu;
-	menus = initMenu(menus);//----规范需要的显示数据
 	//-----
 	$scope.data = {};
 	$scope.data.menu = menus;
@@ -24,36 +23,6 @@ function Mycontroller($scope,$http){
 		.error(function(data, status, headers, config){
 			alert( '请求失败：'+status);
 		});
-		
-	}
-	function initMenu(menus){
-		if (!menus){ menus = [];}
-		//-------微信菜单转化为标准的3*5的数组
-		for(var i=0;i<3; i++){
-			var menuBranch = menus[i];//-----一级菜单
-			if ( !menuBranch){
-				menuBranch = {name :"菜单"+i,sub_button :[]};//----没有时建立起
-				menus[i] = menuBranch;
-			}
-			for(var j=0;j<5; j++){//-----子菜单
-				var menuSub = menuBranch.sub_button[j];
-				if (!menuSub){
-					menuSub = {
-						"type": "",
-						"name": "",
-						"key": "",
-						"sub_button": []
-					};//-------初始化
-					menuBranch.sub_button[j] = menuSub;
-				}else{
-					//----为显示需要，做如下修改
-					if(menuSub.type =="view"){
-						menuSub.key = menuSub.url;
-					}
-				}
-			}
-		}
-		return menus;
 	}
 	//----表单数据转换为微信菜单
 	function makeMeun4Form(){
@@ -80,7 +49,8 @@ function Mycontroller($scope,$http){
 							menu.button[i].sub_button[j] = {
 								"name": sub.name,
 								"type": subType,
-								"sub_button":[]
+								"sub_button":[],
+								"oauth":sub.oauth
 							};
 							if (subType=='view'){
 								menu.button[i].sub_button[j].url = sub.key
@@ -94,5 +64,4 @@ function Mycontroller($scope,$http){
 		}
 		return menu;
 	}
-	//console.log(menus);
 }

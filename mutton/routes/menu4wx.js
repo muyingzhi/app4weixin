@@ -1,5 +1,6 @@
 var wechat = require('wechat');
 var config = require('../config');
+var querystring = require('querystring');
 exports.showMenu = function(req, res){
 	var API = wechat.API;
 	var api = new API(config.appid, config.appsecret);
@@ -12,7 +13,7 @@ exports.showMenu = function(req, res){
 			sender.data.menu = [];
 		}else{
 			sender.data.title = config.title;
-			sender.data.menu = result.menu.button;
+			sender.data.menu = initMenu(result.menu.button);//----规范需要的显示数据3*5
 		}
 		res.render("menu/menuShow", sender);
 	});
@@ -38,9 +39,11 @@ exports.saveMenu4wx = function(req, res){
 			if(menu.button[i].sub_button){
 				for(var j=0;j<menu.button[i].sub_button.length;j++){
 					var url = menu.button[i].sub_button[j].url;
-					if(url){
-						url = oauth.getAuthorizeURL(url,"shopping","snsapi_base");
-						menu.button[i].sub_button[j].url = url;
+					var oauthFlag = menu.button[i].sub_button[j].oauth;
+					if(url && oauthFlag){
+
+						menu.button[i].sub_button[j].url = 
+							oauth.getAuthorizeURL(url,"shopping","snsapi_base");
 					}
 				}
 			}
@@ -56,3 +59,40 @@ exports.saveMenu4wx = function(req, res){
 		});
 	});
 };
+function initMenu(menus){
+		if (!menus){ menus = [];}
+		//-------微信菜单转化为标准的3*5的数组
+		for(var i=0;i<3; i++){
+			var menuBranch = menus[i];//-----一级菜单
+			if ( !menuBranch){
+				menuBranch = {name :"菜单"+i,sub_button :[]};//----没有时建立起
+				menus[i] = menuBranch;
+			}
+			for(var j=0;j<5; j++){//-----子菜单
+				var menuSub = menuBranch.sub_button[j];
+				if (!menuSub){
+					menuSub = {
+						"type": "",
+						"name": "",
+						"key": "",
+						"sub_button": []
+					};//-------初始化
+					menuBranch.sub_button[j] = menuSub;
+				}else{
+					//----为显示需要，做如下修改
+					if(menuSub.type =="view"){
+						var tmp = querystring.parse(menuSub.url);
+						console.log(tmp);
+						if(tmp.redirect_uri){
+							menuSub.key = tmp.redirect_uri;
+							menuSub.oauth = true;
+						} else{
+							menuSub.key = menuSub.url;
+						}
+						
+					}
+				}
+			}
+		}
+		return menus;
+	}

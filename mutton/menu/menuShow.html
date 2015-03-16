@@ -22,6 +22,9 @@
 							</select><p>
 							<label >键值</label>
 							<input size="20" ng-model="sub.key"/>
+							<span ng-show="sub.type=='view'">
+								<input type="checkbox" ng-model="sub.oauth" >带认证
+							</span>
 						</li>
 					</ul>
 				</div>

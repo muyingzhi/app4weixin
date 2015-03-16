@@ -16,9 +16,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', routes);
 app.use('/users', users);
-//-----微信接口目录
-var appWechat = require('./appWechat');
-app.use('/EHRBrowser',appWechat);
+//-----HJK微信接口目录
+app.use('/EHRBrowser',require('./app4HJK'));
 //-----使用html 的路由
 app.use('/html', require('./app4html'));
 //----

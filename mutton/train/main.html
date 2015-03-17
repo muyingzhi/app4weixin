@@ -1,24 +1,19 @@
-<% include ../common/header.html %>
-<div>
-	<div class="row">
-		<div class="col-xs-12 col-md-4">
-			<div class="panel panel-default">
-				<div class="panel panel-heading" style="margin-bottom:0">
-					<h1>云工作</h1>
-				</div>
-				<ul class="list-group">
-					<a href="#" class="list-group-item list-group-item-success"><h4>陈列中心&nbsp;》》</h4></a>
-					<a href="train" class="list-group-item list-group-item-success"><h4>培训中心&nbsp;》》</h4></a>
-					<a href="#" class="list-group-item list-group-item-success"><h4>签到&nbsp;》》</h4></a>
-					<a href="#" class="list-group-item list-group-item-success"><h4>巡店&nbsp;》》</h4></a>
-					<a href="#" class="list-group-item list-group-item-success"><h4>公司新闻&公告栏&nbsp;》》</h4></a>
-					<a href="#" class="list-group-item list-group-item-success"><h4>通讯录&nbsp;》》</h4></a>
-				</ul>
-			</div>
-		</div>
-	</div>
+<% include ../common/header-wx.html %>
+<div class="wxapi_container">
+	<div class="wxapi_index_container">
+      <ul class="label_box lbox_close wxapi_index_list">
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-basic">陈列中心</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="train">培训中心</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-image">签到</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-voice">巡店</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-smart">公司新闻&公告栏</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-device">通讯录</a></li>
+      </ul>
+    </div>		
 </div>
-	<script type="text/javascript" src="javascripts/angular.min.js"></script>
-	
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript">
+	document.title = "云工作"
+</script>
 </body>
 </html>

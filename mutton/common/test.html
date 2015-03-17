@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN" ng-app>
+<head>
+    <meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../../public/stylesheets/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.min.css">
+	<style type="text/css">
+		button{width:250px;height:60px;float:left;margin:5px;}
+	</style>
+</head>
+<body class="container-fluid">
+	</br>
+	<button class="btn btn-success" type="button">
+		体温 <span class="badge">36.6</span>
+	</button>
+	<button class="btn btn-warning" type="button">
+		血压 <span class="badge">收缩压：135 舒张压：100</span>
+	</button>
+	<button class="btn btn-warning" type="button">
+		血氧 <span class="badge">血氧：97；脉率：78</span>
+	</button>
+	<button class="btn btn-success" type="button">
+		尿液分析 <span class="badge">36.6</span>
+	</button>
+	<button class="btn btn-default" type="button">
+		血糖 <span class="badge">未测量</span>
+	</button>
+	<button id="btnEcg" class="btn btn-success" type="button" 
+	 data-toggle="tooltip" data-placement="right" title="点击查看心电图">
+		心电图 <span class="badge">心率：76</span>
+	</button>
+	<button class="btn btn-warning" type="button">
+		BMI <span class="badge">26；身高：167；体重：89</span>
+	</button>
+	<script type="text/javascript" src="../../public/javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="../../public/javascripts/angular.min.js"></script>
+	<script type="text/javascript" src="../../public/javascripts/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$('#btnEcg').tooltip();
+	</script>
+</body>
+</html>

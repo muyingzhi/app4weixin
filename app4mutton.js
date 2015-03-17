@@ -61,11 +61,17 @@ app.use("/dologin", require("./mutton/routes/doLogin").dologin);
 app.use("/javascripts/jquery.min.map", function(req, res){
     res.send("");
 })
-app.use("/trainMain", function(req,res){
-    res.render("train/main");//----培训中心页面
+app.use("/main", function(req,res){
+    res.render("train/main");//----主页面
+});
+app.use("/train", function(req,res){
+    res.render("train/train");//----培训中心页面
 });
 app.use("/employee_manual", function(req,res){
-    res.render("train/employee_manual");//----培训中心页面
+    res.render("train/employee_manual");//----培训－员工手册页面
+});
+app.use("/production_management", function(req,res){
+    res.render("train/production_Management");//----培训－生产管理页面
 });
 // 检查session，以下的router需要用户登录
 app.use(function(req, res, next) {

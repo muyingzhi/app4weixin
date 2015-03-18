@@ -2,41 +2,67 @@
 <html lang="zh-CN" ng-app>
 <head>
     <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 	<link rel="stylesheet" type="text/css" href="../../public/stylesheets/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.min.css">
 	<style type="text/css">
-		button{width:250px;height:60px;float:left;margin:5px;}
+		[type="button"]{width:100%;height:60px;margin:5px 0;
+			background-color: rgba(86,61,124,0.15)}
+		[nodo]{
+			background-color: rgba(255,255,255,0.2)}
+		}
 	</style>
 </head>
-<body class="container-fluid">
-	</br>
-	<button class="btn btn-success" type="button">
-		体温 <span class="badge">36.6</span>
-	</button>
-	<button class="btn btn-warning" type="button">
-		血压 <span class="badge">收缩压：135 舒张压：100</span>
-	</button>
-	<button class="btn btn-warning" type="button">
-		血氧 <span class="badge">血氧：97；脉率：78</span>
-	</button>
-	<button class="btn btn-success" type="button">
-		尿液分析 <span class="badge">36.6</span>
-	</button>
-	<button class="btn btn-default" type="button">
-		血糖 <span class="badge">未测量</span>
-	</button>
-	<button id="btnEcg" class="btn btn-success" type="button" 
-	 data-toggle="tooltip" data-placement="right" title="点击查看心电图">
-		心电图 <span class="badge">心率：76</span>
-	</button>
-	<button class="btn btn-warning" type="button">
-		BMI <span class="badge">26；身高：167；体重：89</span>
-	</button>
+<body class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<button class="btn btn-default" type="button"
+			 data-toggle="tooltip" data-placement="bottom" title="点击查看历史">
+				体温 <span class="badge">36.6</span>
+			</button>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<button class="btn btn-default" type="button"
+			 data-toggle="tooltip" data-placement="bottom" title="点击查看历史">
+				血压 <span class="badge">收缩压：135 舒张压：100</span>
+			</button>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<button class="btn btn-default" type="button"
+			 data-toggle="tooltip" data-placement="bottom" title="点击查看历史">
+				血氧 <span class="badge">血氧：97；脉率：78</span>
+			</button>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<button class="btn btn-default" type="button"
+			 data-toggle="tooltip" data-placement="bottom" title="点击查看历史">
+				尿液分析 <span class="badge">36.6</span>
+			</button>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<button class="btn btn-default" type="button" nodo
+			 data-toggle="tooltip" data-placement="bottom" title="点击查看历史">
+				血糖 <span class="badge">未测量</span>
+			</button>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<button id="btnEcg" class="btn btn-default" type="button" 
+			 data-toggle="tooltip" data-placement="bottom" title="点击查看心电图">
+				心电图 <span class="badge">心率：76</span>
+			</button>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<button class="btn btn-default" type="button"
+			 data-toggle="tooltip" data-placement="bottom" title="点击查看历史">
+				BMI <span class="badge">26；身高：167；体重：89</span>
+			</button>
+		</div>
+	</div>
 	<script type="text/javascript" src="../../public/javascripts/jquery.min.js"></script>
 	<script type="text/javascript" src="../../public/javascripts/angular.min.js"></script>
 	<script type="text/javascript" src="../../public/javascripts/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		$('#btnEcg').tooltip();
+		$('[type=button]').tooltip();
 	</script>
 </body>
 </html>

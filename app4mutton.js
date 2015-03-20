@@ -73,6 +73,9 @@ app.use("/employee_manual", function(req,res){
 app.use("/production_management", function(req,res){
     res.render("train/production_Management");//----培训－生产管理页面
 });
+app.use("/signin", function(req,res){
+    res.render("train/signin");//----主页面
+});
 // 检查session，以下的router需要用户登录
 app.use(function(req, res, next) {
     var sess = req.session;

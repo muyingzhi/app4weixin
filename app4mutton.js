@@ -73,6 +73,9 @@ app.use("/employee_manual", function(req,res){
 app.use("/production_management", function(req,res){
     res.render("train/production_Management");//----培训－生产管理页面
 });
+app.use("/contact", function(req,res){
+    res.render("train/contact");//----通讯录
+});
 app.use("/signin", function(req,res){
     res.render("train/signin");//----主页面
 });

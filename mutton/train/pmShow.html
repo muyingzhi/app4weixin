@@ -1,0 +1,19 @@
+<% include ../common/header.html %>
+	<div  ng-controller="Mycontroller">
+		<ol class="breadcrumb">
+			<li><a href="main">首页</a></li>
+			<li><a href="train">培训中心</a></li>
+			<li><a href="production_management">生产管理</a></li>
+		</ol>
+		<center><h4>标题:<%=data.id%>{{data.id}}</h4>
+		<p><span>发布日期：2012-09-08</span><span style="margin-left:10px;">作者：刘青</span></p>
+		</center>
+		<hr>
+		<p>
+		</p>
+	</div>
+	<script type="text/javascript">
+		window.modeData = <%-JSON.stringify(data)%>;
+	</script>
+	<script type="text/javascript" src="pmShow.js"></script>
+<% include ../common/footer.html %>

@@ -30,8 +30,8 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json 
 app.use(bodyParser.json())
-//---------不需要登录的route
 
+//---------不需要登录的route
 //app.get( '/verfiy', require("./mutton/routes/verfiy4weixin").weixinVerfiy);
 app.use('/verfiy',wechat("shoppingManager",function(req,res,next){
     if (req.method == "GET"){
@@ -71,7 +71,12 @@ app.use("/employee_manual", function(req,res){
     res.render("train/employee_manual");//----培训－员工手册页面
 });
 app.use("/production_management", function(req,res){
-    res.render("train/production_Management");//----培训－生产管理页面
+    var id = req.query.id;
+    if(id){
+        res.render("train/pmShow",{data:req.query});
+    }else{
+        res.render("train/production_Management");//----培训－生产管理页面
+    }
 });
 app.use("/contact", function(req,res){
     res.render("train/contact");//----通讯录

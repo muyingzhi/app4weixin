@@ -65,9 +65,8 @@ var copy = function( src, dst , callback){
                     // 通过管道来传输流
                     readable.pipe( writable,{end:false} );
                     readable.on("end",function(){
-                    	
                     	if(_dst.indexOf("config.json")>=0){
-                    		console.log(_dst);
+                    		console.log("重写:"+_dst);
 	                    	fs.writeFile(_dst,
 								JSON.stringify({"appid":appid,
                                     "appsecret":appsecret,
@@ -75,6 +74,7 @@ var copy = function( src, dst , callback){
                                     "token": token}));
 	                    }
                         if(_dst.indexOf("app4health.js")>=0){
+                            console.log("改名:"+_dst);
                             fs.rename(_dst,_dst.substr(0,_dst.indexOf("app4health.js"))+"app4"+appname+".js");
                         }
                     })
@@ -103,5 +103,7 @@ var exists = function( src, dst, callback ){
         }
     });
 };
+    console.log("请手动修改app.js");
 // 复制目录
 exists( './health', './'+appname, copy);
+

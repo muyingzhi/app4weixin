@@ -1,5 +1,6 @@
-<% include ../common/header.html %>
-<div ng-app>
+<% include header.html %>
+
+<div class="container-fluid" ng-app>
 	<div ng-controller="Mycontroller">
 		<div class="row">
 			<center><h2>{{data.title}}</h2></center>
@@ -47,4 +48,4 @@
 	window.modeData = <%- JSON.stringify(data) %>;
 	//----来自node服务端的数据被写入modeData，这里需要尽快在controller中另存到变量
 	</script>
-<% include ../common/footer.html %>
+<% include footer.html %>

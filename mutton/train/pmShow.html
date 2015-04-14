@@ -1,19 +1,13 @@
-<% include ../common/header.html %>
-	<div  ng-controller="Mycontroller">
-		<ol class="breadcrumb">
-			<li><a href="main">首页</a></li>
-			<li><a href="train">培训中心</a></li>
-			<li><a href="production_management">生产管理</a></li>
-		</ol>
-		<center><h4>标题:<%=data.id%>{{data.id}}</h4>
-		<p><span>发布日期：2012-09-08</span><span style="margin-left:10px;">作者：刘青</span></p>
+	<div >
+		<center><h4>{{detail.title}}</h4>
+		<p><span>发布日期：{{detail.date}}</span><span style="margin-left:10px;">作者：{{detail.author}}</span></p>
 		</center>
 		<hr>
-		<p>
+		<p class="text-overflow">
+			asdfadsfasdfasdfasdfasdfasdfasdfasdfsdfasdfasd</p>
+		<p class="text-overflow">	asdfasdfasdf</p>
+		<p class="text-overflow">	asdfasdfasdfasdffdasdf
 		</p>
+		<hr>
+		<center><a href="#/pmList" class="btn btn-success">返回</a></center>
 	</div>
-	<script type="text/javascript">
-		window.modeData = <%-JSON.stringify(data)%>;
-	</script>
-	<script type="text/javascript" src="pmShow.js"></script>
-<% include ../common/footer.html %>

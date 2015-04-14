@@ -74,3 +74,13 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 bin/www
+
+dist/mutton.js
+
+ftpclient.js
+
+dist/mutton.min.js
+
+ftpPut.sh
+
+Gruntfile.js

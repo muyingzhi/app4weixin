@@ -2,7 +2,7 @@
 *接收前端的请求，整理数据成菜单json，
 *通过api创建菜单，然后返回消息
 */
-var usersManager = require('../../database/usersManager');
+
 exports.dologin = function(req, res){
 	var user={
 	    username:"admin",
@@ -10,7 +10,20 @@ exports.dologin = function(req, res){
 	};
 
 	var query = req.body;
-	console.log(query);
+
+	if(query.username==user.username && query.password==user.password){
+		req.session.user = query;//用户信息写入session
+		// //----记录登录时间
+		// var usersManager = require("./UsersManager");
+		//usersManager.loginRecord(query);
+		// 显示菜单页面
+        return res.redirect("main");
+    }else{
+        //return res.render("login/loginPage",query);
+        return res.redirect("login.html");
+    }
+
+    // var usersManager = require('../../database/usersManager');
 	// usersManager.findUserByName(query.username,function(users){
 	// 	if(!users || !users[0]){
 	// 		req.session.error="用户名未注册";
@@ -26,17 +39,6 @@ exports.dologin = function(req, res){
 	// 		}
 	// 	}
 	// })
-	if(query.username==user.username && query.password==user.password){
-		req.session.user = query;//用户信息写入session
-		//----记录登录时间
-		var usersManager = require("./UsersManager");
-		usersManager.loginRecord(query);
-		// 显示菜单页面
-        return res.redirect("menuInfo");
-    }else{
-        //return res.render("login/loginPage",query);
-        return res.redirect("login.html");
-    }
 };
 exports.logout = function(req, res){
 	
@@ -45,3 +47,6 @@ exports.logout = function(req, res){
 	}
     return res.redirect("login.html");
 };
+exports.saveUser = function(user, callback){
+	callback({code:"1",message:"数据保存未开发。"});
+}

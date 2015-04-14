@@ -1,13 +1,13 @@
 <% include ../common/header.html %>
-<div>
+<div ng-controller="signinController">
 	<ol class="breadcrumb">
-		<li><a href="main">首页</a></li>
+		<li ng-repeat="item in topNav"><a href="{{item.href}}">{{item.text}}</a></li>
 		<li class="active">签到</li>
 	</ol>
 	<div class="row">
 		<div class="col-xs-12 col-md-3">
 			<div class="row alert alert-default" role="alert">
-				<center><h4>3月7日，星期六</h4></center>
+				<center><h4>{{today}}</h4></center>
 			</div>
 			<div class="row">
 				<div class="col-xs-offset-1 col-xs-10 btn btn-default">上报地理位置</div>
@@ -17,7 +17,7 @@
 				<div class="col-xs-offset-1 col-xs-6">上班：9:00</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-offset-1 col-xs-6"><label>当前时间：8:45</label></div>
+				<div class="col-xs-offset-1 col-xs-6"><label>当前时间：{{nowTime}}</label></div>
 				<div class="col-xs-4 btn btn-success">签到</div>
 			</div>
 			<p>
@@ -25,11 +25,12 @@
 				<div class="col-xs-offset-1 col-xs-6">下班：18:00</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-offset-1 col-xs-6"><label>当前时间：8:45</label></div>
+				<div class="col-xs-offset-1 col-xs-6"><label>当前时间：[]</label></div>
 				<div class="col-xs-4 btn btn-default" disabled>签到</div>
 			</div>
 		</div>
 	</div>
-
 </div>
+<script type="text/javascript" src="../public/javascripts/require.js" data-main="scripts/signinMain">
+</script>
 <% include ../common/footer.html %>

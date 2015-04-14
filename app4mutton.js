@@ -15,10 +15,10 @@ app.set('views', views);
 app.engine('html', ejs.renderFile);
 app.set('view engine', 'html'); // app.set('view engine', 'ejs');
 //----js文件目录
-app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(path.join(__dirname, '/mutton/login')));
 app.use(express.static(path.join(__dirname, '/mutton/menu')));
 app.use(express.static(path.join(__dirname, '/mutton/train')));
+app.use("/scripts",express.static(path.join(__dirname, '/mutton/scripts')));
 //----设置session
 app.use(session({
     name: 'Msessionid',
@@ -49,18 +49,20 @@ app.use("/userRegist", require("./mutton/routes/WeixinServer").registBywx);
 
 //----------------后台管理登录页面
 app.use("/login.html", function(req, res) {
-    res.render("login/loginPage", function(err, html){
-        if(err){
-            console.log("LOGIN PAGE is error:"+err);
-        }
-        console.log("redirect to Login.html");
-        res.send(html);
-    });
+    res.render("login/loginPage",{message:""});
 });
-app.use("/dologin", require("./mutton/routes/doLogin").dologin);
-app.use("/javascripts/jquery.min.map", function(req, res){
-    res.send("");
+app.use("/registerUser",function(req, res){
+    res.render("login/editUser");
+});
+app.use("/saveUser",function(req, res){
+    var user = req.body;
+    console.log(req);
+    require('./database/usersManager').saveUser(user,function(result){
+        res.send(result);
+    });
 })
+app.use("/dologin", require("./mutton/routes/doLogin").dologin);
+
 app.use("/main", function(req,res){
     res.render("train/main");//----主页面
 });
@@ -70,28 +72,25 @@ app.use("/train", function(req,res){
 app.use("/employee_manual", function(req,res){
     res.render("train/employee_manual");//----培训－员工手册页面
 });
-app.use("/production_management", function(req,res){
-    var id = req.query.id;
-    if(id){
-        res.render("train/pmShow",{data:req.query});
-    }else{
-        res.render("train/production_Management");//----培训－生产管理页面
-    }
-});
+
+app.use("/production_management", require('./mutton/routes/pm').pmShow);
+
 app.use("/contact", function(req,res){
     res.render("train/contact");//----通讯录
 });
 app.use("/signin", function(req,res){
     res.render("train/signin");//----主页面
 });
-// 检查session，以下的router需要用户登录
+// --------检查session，以下的router需要用户登录
 app.use(function(req, res, next) {
     var sess = req.session;
     if (sess && sess.user) {
         res.locals.user = sess.user;
         next();
     } else{
-        res.redirect("login.html");
+        console.log(req.url);
+        //----未登录的转向登录页面
+        res.redirect("/mutton/login.html");
     }
 });
 app.use("/logout", require("./mutton/routes/doLogin").logout);

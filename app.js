@@ -12,8 +12,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/public')));
-
+app.use("/public",express.static(path.join(__dirname, '/public')));
+app.use("/public/javascripts/jquery.min.map", function(req, res){
+    res.send("");
+})
 app.use('/', routes);
 app.use('/users', users);
 //-----HJK微信接口目录
@@ -22,6 +24,8 @@ app.use('/EHRBrowser',require('./app4HJK'));
 app.use('/html', require('./app4html'));
 //----
 app.use('/mutton', require('./app4mutton'));
+//----
+app.use('/health', require('./health/app4health'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

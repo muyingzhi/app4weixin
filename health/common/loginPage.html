@@ -1,5 +1,6 @@
-<% include ../common/header.html %>
-<form action="dologin" method="post" class="form-horizontal">
+<% include header.html %>
+<div class="container-fluid">
+	<form action="dologin" method="post" class="form-horizontal">
 			<legend>用户登录</legend>
 			<div class="form-group">
 				<label class="col-xs-2 col-sm-2 control-label" for="username">用户名</label>
@@ -21,7 +22,8 @@
 				</div>
 			</div>
 			<div class="col-xs-offset-2 col-sm-offset-2"><%- message %></div>
-</form>
+	</form>
+</div>
 	<script type="text/javascript" src="login.js"></script>
 
-<% include ../common/footer.html %>
+<% include footer.html %>

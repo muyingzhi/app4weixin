@@ -84,3 +84,7 @@ dist/mutton.min.js
 ftpPut.sh
 
 Gruntfile.js
+
+public/javascripts/domReady.js
+
+public/javascripts/indexeddb.js

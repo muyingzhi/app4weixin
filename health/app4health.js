@@ -1,5 +1,5 @@
 
-var token = "muyzhealth";
+var token = require('./config').token;
 var express = require('express');
 var ejs = require('ejs');
 var path = require("path");

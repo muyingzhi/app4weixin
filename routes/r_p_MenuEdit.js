@@ -16,6 +16,7 @@ router.get('/', function(req, res) {
 			menu.title = "取菜单失败";
 		}
 		;
+		if(!menu.button){menu.button = [];}
 		for(var i=0;i<3;i++){
 			if(!menu.button[i]){
 				menu.button[i] = {};//----不够三个的补充
